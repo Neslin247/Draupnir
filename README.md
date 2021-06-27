@@ -2,7 +2,8 @@
 
 ![Draupnir](https://64.media.tumblr.com/53d2ccb0dce0126cbddf1f99795f5674/eead4226c91dd5b7-1f/s400x600/f12a1b035a27a9185a6f73edceac17d1ed5e6cb7.png)
 
-[![Build Status](1.14.3.1)](1.14.3.1)
+#[![Build Status](1.14.3.1)](1.14.3.1)
+Build Status=1.14.3.1 beta
 
 Draupnir is a cryptocurrency like Bitcoin, although it does not use SHA256 as
 its proof of work (POW). Taking development cues from Dogecoin, Bitcoin, Tenebrix, and Litecoin,
