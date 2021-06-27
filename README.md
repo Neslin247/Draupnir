@@ -1,6 +1,6 @@
 # Draupnir Core [DRAUPNIR, D]
 
-![Draupnir](https://draupnircoin.tumblr.com/post/655175768984387584)
+![Draupnir](https://64.media.tumblr.com/4ffe391f11cf908cf775ba6d93ff1c33/0c82ff7c90a192c0-a8/s1280x1920/d7fe0ed365945370672f8c71d04705ebf4a347e5.png)
 
 [![Build Status](https://travis-ci.com/draupnir/draupnir.svg?branch=master)](https://travis-ci.com/draupnir/draupnir)
 
