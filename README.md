@@ -1,6 +1,6 @@
 # Draupnir Core [DRAUPNIR, D]
 
-![Draupnir](https://64.media.tumblr.com/4ffe391f11cf908cf775ba6d93ff1c33/0c82ff7c90a192c0-a8/s1280x1920/d7fe0ed365945370672f8c71d04705ebf4a347e5.png)
+![Draupnir](https://64.media.tumblr.com/53d2ccb0dce0126cbddf1f99795f5674/eead4226c91dd5b7-1f/s400x600/f12a1b035a27a9185a6f73edceac17d1ed5e6cb7.png)
 
 [![Build Status](https://travis-ci.com/draupnir/draupnir.svg?branch=master)](https://travis-ci.com/draupnir/draupnir)
 
