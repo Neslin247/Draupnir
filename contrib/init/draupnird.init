@@ -1,0 +1,67 @@
+#!/bin/bash
+#
+#  draupnird The draupnir core server.
+#
+#
+# chkconfig: 345 80 20
+# description: draupnird
+# processname: draupnird
+#
+
+# Source function library.
+. /etc/init.d/functions
+
+# you can override defaults in /etc/sysconfig/draupnird, see below
+if [ -f /etc/sysconfig/draupnird ]; then
+        . /etc/sysconfig/draupnird
+fi
+
+RETVAL=0
+
+prog=draupnird
+# you can override the lockfile via D_LOCKFILE in /etc/sysconfig/draupnird
+lockfile=${DRAUPNIRD_LOCKFILE-/var/lock/subsys/draupnird}
+
+# draupnird defaults to /usr/bin/draupnird, override with DRAUPNIRD_BIN
+draupnird=${DRAUPNIRD_BIN-/usr/bin/draupnird}
+
+# draupnird opts default to -disablewallet, override with DRAUPNIRD_OPTS
+draupnird_opts=${DRAUPNIRD_OPTS--disablewallet}
+
+start() {
+    echo -n $"Starting $prog: "
+    daemon $DAEMONOPTS $draupnird $draupnird_opts
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && touch $lockfile
+    return $RETVAL
+}
+
+stop() {
+    echo -n $"Stopping $prog: "
+    killproc $prog
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && rm -f $lockfile
+    return $RETVAL
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    status)
+        status $prog
+        ;;
+    restart)
+        stop
+        start
+        ;;
+    *)
+        echo "Usage: service $prog {start|stop|status|restart}"
+        exit 1
+        ;;
+esac
