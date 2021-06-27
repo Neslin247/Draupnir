@@ -1,11 +1,11 @@
 Sample configuration files for:
 
-SystemD: dogecoind.service
-Upstart: dogecoind.conf
-OpenRC:  dogecoind.openrc
-         dogecoind.openrcconf
-CentOS:  dogecoind.init
-OS X:    org.dogecoin.dogecoind.plist
+SystemD: draupnird.service
+Upstart: draupnird.conf
+OpenRC:  draupnird.openrc
+         draupnird.openrcconf
+CentOS:  draupnird.init
+OS X:    org.draupnir.draupnird.plist
 
 have been made available to assist packagers in creating node packages here.
 

@@ -52,7 +52,7 @@
     </message>
     </context>
 <context>
-    <name>DogecoinGUI</name>
+    <name>DraupnirGUI</name>
     <message>
         <source>&amp;Wow</source>
         <translation>&amp;கண்ணோட்டம்</translation>
@@ -90,8 +90,8 @@
         <translation>&amp;செய்தியை சரிசெய்...</translation>
     </message>
     <message>
-        <source>Dogecoin</source>
-        <translation>Dogecoin</translation>
+        <source>Draupnir</source>
+        <translation>Draupnir</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -706,10 +706,10 @@
     <name>WalletView</name>
     </context>
 <context>
-    <name>dogecoin-core</name>
+    <name>draupnir-core</name>
     <message>
-        <source>Dogecoin Core</source>
-        <translation>Dogecoin மையம்</translation>
+        <source>Draupnir Core</source>
+        <translation>Draupnir மையம்</translation>
     </message>
     <message>
         <source>(default: %u)</source>

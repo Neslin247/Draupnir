@@ -47,7 +47,7 @@
 #endif
 
 const int BITCOIN_IPC_CONNECT_TIMEOUT = 1000; // milliseconds
-const QString BITCOIN_IPC_PREFIX("dogecoin:");
+const QString BITCOIN_IPC_PREFIX("draupnir:");
 // BIP70 payment protocol messages
 const char* BIP70_MESSAGE_PAYMENTACK = "PaymentACK";
 const char* BIP70_MESSAGE_PAYMENTREQUEST = "PaymentRequest";
@@ -78,7 +78,7 @@ namespace // Anon namespace
 //
 static QString ipcServerName()
 {
-    QString name("DogecoinQt");
+    QString name("DraupnirQt");
 
     // Append a simple hash of the datadir
     // Note that GetDataDir(true) returns a different path
@@ -237,7 +237,8 @@ void PaymentServer::ipcParseCommandLine(int argc, char* argv[])
             PaymentRequestPlus request;
             if (readPaymentRequestFromFile(arg, request))
             {
-                if (request.getDetails().genesis() == "1a91e3dace36e2be3bf030a65679fe821aa1d6ef92e7c9902eb318182c355691")
+                //if (request.getDetails().genesis() == "1a91e3dace36e2be3bf030a65679fe821aa1d6ef92e7c9902eb318182c355691")
+                if (request.getDetails().genesis() == "fbb770b8bc37dac0fc8cfc27542a0fb38cea5deddd493ea8df830c6ef0d3f90d") // SKOL
                 {
                     SelectParams(CBaseChainParams::MAIN);
                 }
@@ -324,7 +325,7 @@ PaymentServer::PaymentServer(QObject* parent, bool startLocalServer) :
         if (!uriServer->listen(name)) {
             // constructor is called early in init, so don't use "Q_EMIT message()" here
             QMessageBox::critical(0, tr("Payment request error"),
-                tr("Cannot start dogecoin: click-to-pay handler"));
+                tr("Cannot start draupnir: click-to-pay handler"));
         }
         else {
             connect(uriServer, SIGNAL(newConnection()), this, SLOT(handleURIConnection()));
@@ -449,7 +450,7 @@ void PaymentServer::handleURIOrFile(const QString& s)
             }
             else
                 Q_EMIT message(tr("URI handling"),
-                    tr("URI cannot be parsed! This can be caused by an invalid Dogecoin address or malformed URI parameters."),
+                    tr("URI cannot be parsed! This can be caused by an invalid Draupnir address or malformed URI parameters."),
                     CClientUIInterface::ICON_WARNING);
 
             return;

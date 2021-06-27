@@ -48,10 +48,21 @@ static CBlock CreateGenesisBlock(const char* pszTimestamp, const CScript& genesi
  *     CTxOut(nValue=50.00000000, scriptPubKey=0x5F1DF16B2B704C8A578D0B)
  *   vMerkleTree: 4a5e1e
  */
+
+/**
 static CBlock CreateGenesisBlock(uint32_t nTime, uint32_t nNonce, uint32_t nBits, int32_t nVersion, const CAmount& genesisReward)
 {
     const char* pszTimestamp = "Nintondo";
     const CScript genesisOutputScript = CScript() << ParseHex("040184710fa689ad5023690c80f3a49c8f13f8d45b8c857fbcbc8bc4a8e4d3eb4b10f4d4604fa08dce601aaf0f470216fe1b51850b4acf21b179c45070ac7b03a9") << OP_CHECKSIG;
+    return CreateGenesisBlock(pszTimestamp, genesisOutputScript, nTime, nNonce, nBits, nVersion, genesisReward);
+}
+*/
+
+static CBlock CreateGenesisBlock(uint32_t nTime, uint32_t nNonce, uint32_t nBits, int32_t nVersion, const CAmount& genesisReward)
+{
+    const char* pszTimestamp = "Michael Jordan is the goat of all goats. Period.";
+    const CScript genesisOutputScript = CScript() << ParseHex("04678afdb0fe5548271967f1a67130b7105cd6a828e03909a67962e0ea1f61deb649f6bc3f4cef38c4f35504e51ec112de5c384df7ba0b8d578a4c702b6bf11d5f") << OP_CHECKSIG;
+    
     return CreateGenesisBlock(pszTimestamp, genesisOutputScript, nTime, nNonce, nBits, nVersion, genesisReward);
 }
 
@@ -79,11 +90,16 @@ public:
         consensus.nMajorityEnforceBlockUpgrade = 1500;
         consensus.nMajorityRejectBlockOutdated = 1900;
         consensus.nMajorityWindow = 2000;
-        // BIP34 is never enforced in Dogecoin v2 blocks, so we enforce from v3
-        consensus.BIP34Height = 1034383;
-        consensus.BIP34Hash = uint256S("0x80d1364201e5df97e696c03bdd24dc885e8617b9de51e453c10a4f629b1e797a");
-        consensus.BIP65Height = 3464751; // 34cd2cbba4ba366f47e5aa0db5f02c19eba2adf679ceb6653ac003bdc9a0ef1f - first v4 block after the last v3 block
-        consensus.BIP66Height = 1034383; // 80d1364201e5df97e696c03bdd24dc885e8617b9de51e453c10a4f629b1e797a - this is the last block that could be v2, 1900 blocks past the last v2 block
+        // BIP34 is never enforced in Draupnir v2 blocks, so we enforce from v3
+        //consensus.BIP34Height = 1034383;
+        //consensus.BIP34Hash = uint256S("0x80d1364201e5df97e696c03bdd24dc885e8617b9de51e453c10a4f629b1e797a");
+        //consensus.BIP65Height = 3464751; // 34cd2cbba4ba366f47e5aa0db5f02c19eba2adf679ceb6653ac003bdc9a0ef1f - first v4 block after the last v3 block
+        //consensus.BIP66Height = 1034383; // 80d1364201e5df97e696c03bdd24dc885e8617b9de51e453c10a4f629b1e797a - this is the last block that could be v2, 1900 blocks past the last v2 block
+        consensus.BIP34Height = 0;
+        consensus.BIP34Hash = uint256S("0x0");
+        consensus.BIP65Height = 0; // 34cd2cbba4ba366f47e5aa0db5f02c19eba2adf679ceb6653ac003bdc9a0ef1f - first v4 block after the last v3 block
+        consensus.BIP66Height = 0; // 80d1364201e5df97e696c03bdd24dc885e8617b9de51e453c10a4f629b1e797a - this is the last block that could be v2, 1900 blocks past the last v2 block
+        consensus.powLimit = uint256S("0x00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); // ~uint256(0) >> 20;
         consensus.powLimit = uint256S("0x00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); // ~uint256(0) >> 20;
         consensus.nPowTargetTimespan = 4 * 60 * 60; // pre-digishield: 4 hours
         consensus.nPowTargetSpacing = 60; // 1 minute
@@ -99,7 +115,7 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nTimeout = 1230767999; // December 31, 2008
 
         // Deployment of BIP68, BIP112, and BIP113.
-        // XXX: BIP heights and hashes all need to be updated to Dogecoin values
+        // XXX: BIP heights and hashes all need to be updated to Draupnir values
         consensus.vDeployments[Consensus::DEPLOYMENT_CSV].bit = 0;
         consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nStartTime = 1462060800; // May 1st, 2016
         consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nTimeout = 1493596800; // May 1st, 2017
@@ -113,7 +129,8 @@ public:
         consensus.nMinimumChainWork = uint256S("0x000000000000000000000000000000000000000000000141a39e783aad4f660f");
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0x77e3f4a4bcb4a2c15e8015525e3d15b466f6c022f6ca82698f329edef7d9777e"); // 2,510,150
+        //consensus.defaultAssumeValid = uint256S("0x77e3f4a4bcb4a2c15e8015525e3d15b466f6c022f6ca82698f329edef7d9777e"); // 2,510,150
+        consensus.defaultAssumeValid = uint256S("0x00"); // SKOL
 
         // AuxPoW parameters
         consensus.nAuxpowChainId = 0x0062; // 98 - Josh Wise!
@@ -144,25 +161,30 @@ public:
          * The characters are rarely used upper ASCII, not valid as UTF-8, and produce
          * a large 32-bit integer with any alignment.
          */
-        pchMessageStart[0] = 0xc0;
-        pchMessageStart[1] = 0xc0;
-        pchMessageStart[2] = 0xc0;
-        pchMessageStart[3] = 0xc0;
-        vAlertPubKey = ParseHex("04d4da7a5dae4db797d9b0644d57a5cd50e05a70f36091cd62e2fc41c98ded06340be5a43a35e185690cd9cde5d72da8f6d065b499b06f51dcfba14aad859f443a");
-        nDefaultPort = 22556;
+        pchMessageStart[0] = 0xab;  // SKOL
+        pchMessageStart[1] = 0xba;  // SKOL
+        pchMessageStart[2] = 0xca;  // SKOL
+        pchMessageStart[3] = 0xda;  // SKOL
+        //vAlertPubKey = ParseHex("04d4da7a5dae4db797d9b0644d57a5cd50e05a70f36091cd62e2fc41c98ded06340be5a43a35e185690cd9cde5d72da8f6d065b499b06f51dcfba14aad859f443a");
+        vAlertPubKey = ParseHex("04678afdb0fe5548271967f1a67130b7105cd6a828e03909a67962e0ea1f61deb649f6bc3f4cef38c4f35504e51ec112de5c384df7ba0b8d578a4c702b6bf11d5f");  // SKOL
+        nDefaultPort = 23237;
         nPruneAfterHeight = 100000;
 
-        genesis = CreateGenesisBlock(1386325540, 99943, 0x1e0ffff0, 1, 88 * COIN);
+        //genesis = CreateGenesisBlock(1386325540, 99943, 0x1e0ffff0, 1, 88 * COIN);
+        genesis = CreateGenesisBlock(1622908762, 1888253, 0x1e0ffff0, 1, 88 * COIN);
 
         consensus.hashGenesisBlock = genesis.GetHash();
         digishieldConsensus.hashGenesisBlock = consensus.hashGenesisBlock;
         auxpowConsensus.hashGenesisBlock = consensus.hashGenesisBlock;
-        assert(consensus.hashGenesisBlock == uint256S("0x1a91e3dace36e2be3bf030a65679fe821aa1d6ef92e7c9902eb318182c355691"));
-        assert(genesis.hashMerkleRoot == uint256S("0x5b2a3f53f605d62c53e62932dac6925e3d74afa5a4b459745c36d42d0ed26a69"));
+        //assert(consensus.hashGenesisBlock == uint256S("0x1a91e3dace36e2be3bf030a65679fe821aa1d6ef92e7c9902eb318182c355691"));
+        //assert(genesis.hashMerkleRoot == uint256S("0x5b2a3f53f605d62c53e62932dac6925e3d74afa5a4b459745c36d42d0ed26a69"));
+        
+        //assert(consensus.hashGenesisBlock == uint256S("0xfbb770b8bc37dac0fc8cfc27542a0fb38cea5deddd493ea8df830c6ef0d3f90d"));    // SKOL
+        //assert(genesis.hashMerkleRoot ==  uint256S("0x06a2e225af763f8847bc95066ef5b19d7949a692ebcf9927be6af3a07fa5c40e"));       // SKOL
 
         // Note that of those with the service bits flag, most only support a subset of possible options
-        vSeeds.push_back(CDNSSeedData("multidoge.org", "seed.multidoge.org", true));
-        vSeeds.push_back(CDNSSeedData("multidoge.org", "seed2.multidoge.org"));
+        vSeeds.push_back(CDNSSeedData("draupnircoin.org", "seed.draupnircoin.org", true));    //doge
+        vSeeds.push_back(CDNSSeedData("draupnircoin.org", "seed2.draupircoin.org"));         //doge
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,30);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,22);
@@ -170,7 +192,7 @@ public:
         base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x02)(0xfa)(0xca)(0xfd).convert_to_container<std::vector<unsigned char> >();
         base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x02)(0xfa)(0xc3)(0x98).convert_to_container<std::vector<unsigned char> >();
 
-        //TODO: fix this for dogecoin -- plddr
+        //TODO: fix this for draupnir -- plddr
         //vFixedSeeds = std::vector<SeedSpec6>(pnSeed6_main, pnSeed6_main + ARRAYLEN(pnSeed6_main));
         vFixedSeeds.clear();
 
@@ -179,7 +201,7 @@ public:
         fRequireStandard = true;
         fMineBlocksOnDemand = false;
 
-        checkpointData = (CCheckpointData) {
+        /*checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
             (      0, uint256S("0x1a91e3dace36e2be3bf030a65679fe821aa1d6ef92e7c9902eb318182c355691"))
             ( 104679, uint256S("0x35eb87ae90d44b98898fec8c39577b76cb1eb08e1261cfc10706c8ce9a1d01cf"))
@@ -200,15 +222,21 @@ public:
             ( 3250000, uint256S("0x7f3e28bf9e309c4b57a4b70aa64d3b2ea5250ae797af84976ddc420d49684034"))
             ( 3500000, uint256S("0xeaa303b93c1c64d2b3a2cdcf6ccf21b10cc36626965cc2619661e8e1879abdfb"))
             ( 3606083, uint256S("0x954c7c66dee51f0a3fb1edb26200b735f5275fe54d9505c76ebd2bcabac36f1e"))
+        };*/
+
+        //0xfbb770b8bc37dac0fc8cfc27542a0fb38cea5deddd493ea8df830c6ef0d3f90d
+        checkpointData = {
+            {
+            }
         };
 
         chainTxData = ChainTxData{
             // Data as of block 954c7c66dee51f0a3fb1edb26200b735f5275fe54d9505c76ebd2bcabac36f1e (height 3606083).
             // Tx estimate based on average of year 2021 (~40k transactions per day)
-            1613217680, // * UNIX timestamp of last checkpoint block
-            71035468,   // * total number of transactions between genesis and last checkpoint
-                        //   (the tx=... number in the SetBestChain debug.log lines)
-            0.46        // * estimated number of transactions per second after checkpoint
+            0,  // * UNIX timestamp of last checkpoint block
+            0,  // * total number of transactions between genesis and last checkpoint
+                //   (the tx=... number in the SetBestChain debug.log lines)
+            0   // * estimated number of transactions per second after checkpoint
         };
     }
 };
@@ -237,7 +265,7 @@ public:
         consensus.nMajorityEnforceBlockUpgrade = 501;
         consensus.nMajorityRejectBlockOutdated = 750;
         consensus.nMajorityWindow = 1000;
-        // BIP34 is never enforced in Dogecoin v2 blocks, so we enforce from v3
+        // BIP34 is never enforced in Draupnir v2 blocks, so we enforce from v3
         consensus.BIP34Height = 708658;
         consensus.BIP34Hash = uint256S("0x21b8b97dcdb94caa67c7f8f6dbf22e61e0cfe0e46e1fff3528b22864659e9b38");
         consensus.BIP65Height = 1854705; // 955bd496d23790aba1ecfacb722b089a6ae7ddabaedf7d8fb0878f48308a71f9
@@ -253,7 +281,7 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nTimeout = 1230767999; // December 31, 2008
 
         // Deployment of BIP68, BIP112, and BIP113.
-        // XXX: BIP heights and hashes all need to be updated to Dogecoin values
+        // XXX: BIP heights and hashes all need to be updated to Draupnir values
         consensus.vDeployments[Consensus::DEPLOYMENT_CSV].bit = 0;
         consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nStartTime = 1456790400; // March 1st, 2016
         consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nTimeout = 1493596800; // May 1st, 2017
@@ -267,7 +295,8 @@ public:
         consensus.nMinimumChainWork = uint256S("0x00000000000000000000000000000000000000000000000000001030d1382ade");
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0x6943eaeaba98dc7d09f7e73398daccb4abcabb18b66c8c875e52b07638d93951"); // 900,000
+        //consensus.defaultAssumeValid = uint256S("0x6943eaeaba98dc7d09f7e73398daccb4abcabb18b66c8c875e52b07638d93951"); // 900,000
+        consensus.defaultAssumeValid = uint256S("0x00"); // SKOL
 
         // AuxPoW parameters
         consensus.nAuxpowChainId = 0x0062; // 98 - Josh Wise!
@@ -302,10 +331,10 @@ public:
         digishieldConsensus.pRight = &minDifficultyConsensus;
         minDifficultyConsensus.pRight = &auxpowConsensus;
 
-        pchMessageStart[0] = 0xfc;
-        pchMessageStart[1] = 0xc1;
-        pchMessageStart[2] = 0xb7;
-        pchMessageStart[3] = 0xdc;
+        pchMessageStart[0] = 0xa1;  // SKOL
+        pchMessageStart[1] = 0xb2;  // SKOL
+        pchMessageStart[2] = 0xc3;  // SKOL
+        pchMessageStart[3] = 0xc4;  // SKOL
         vAlertPubKey = ParseHex("042756726da3c7ef515d89212ee1705023d14be389e25fe15611585661b9a20021908b2b80a3c7200a0139dd2b26946606aab0eef9aa7689a6dc2c7eee237fa834");
         nDefaultPort = 44556;
         nPruneAfterHeight = 1000;
@@ -315,8 +344,8 @@ public:
         digishieldConsensus.hashGenesisBlock = consensus.hashGenesisBlock;
         minDifficultyConsensus.hashGenesisBlock = consensus.hashGenesisBlock;
         auxpowConsensus.hashGenesisBlock = consensus.hashGenesisBlock;
-        assert(consensus.hashGenesisBlock == uint256S("0xbb0a78264637406b6360aad926284d544d7049f45189db5664f3c4d07350559e"));
-        assert(genesis.hashMerkleRoot == uint256S("0x5b2a3f53f605d62c53e62932dac6925e3d74afa5a4b459745c36d42d0ed26a69"));
+        //assert(consensus.hashGenesisBlock == uint256S("0xbb0a78264637406b6360aad926284d544d7049f45189db5664f3c4d07350559e"));
+        //assert(genesis.hashMerkleRoot == uint256S("0x5b2a3f53f605d62c53e62932dac6925e3d74afa5a4b459745c36d42d0ed26a69"));
 
         vFixedSeeds.clear();
         vSeeds.clear();
@@ -329,7 +358,7 @@ public:
         base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x04)(0x35)(0x87)(0xcf).convert_to_container<std::vector<unsigned char> >();
         base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x04)(0x35)(0x83)(0x94).convert_to_container<std::vector<unsigned char> >();
 
-        //TODO: fix this for dogecoin -- plddr
+        //TODO: fix this for draupnir -- plddr
         //vFixedSeeds = std::vector<SeedSpec6>(pnSeed6_test, pnSeed6_test + ARRAYLEN(pnSeed6_test));
 
         fMiningRequiresPeers = true;
@@ -415,7 +444,7 @@ public:
         consensus.fStrictChainId = true;
         consensus.fAllowLegacyBlocks = true;
 
-        // Dogecoin parameters
+        // Draupnir parameters
         consensus.fSimplifiedRewards = true;
         consensus.nCoinbaseMaturity = 60; // For easier testability in RPC tests
 
@@ -433,10 +462,10 @@ public:
         digishieldConsensus.pRight = &auxpowConsensus;
         pConsensusRoot = &digishieldConsensus;
 
-        pchMessageStart[0] = 0xfa;
-        pchMessageStart[1] = 0xbf;
-        pchMessageStart[2] = 0xb5;
-        pchMessageStart[3] = 0xda;
+        pchMessageStart[0] = 0xa2;  // SKOL
+        pchMessageStart[1] = 0xc1;  // SKOL
+        pchMessageStart[2] = 0xb4;  // SKOL
+        pchMessageStart[3] = 0xd3;  // SKOL
         nDefaultPort = 18444;
         nPruneAfterHeight = 1000;
 
@@ -444,8 +473,8 @@ public:
         consensus.hashGenesisBlock = genesis.GetHash();
         digishieldConsensus.hashGenesisBlock = consensus.hashGenesisBlock;
         auxpowConsensus.hashGenesisBlock = consensus.hashGenesisBlock;
-        assert(consensus.hashGenesisBlock == uint256S("0x3d2160a3b5dc4a9d62e7e66a295f70313ac808440ef7400d6c0772171ce973a5"));
-        assert(genesis.hashMerkleRoot == uint256S("0x5b2a3f53f605d62c53e62932dac6925e3d74afa5a4b459745c36d42d0ed26a69"));
+        //assert(consensus.hashGenesisBlock == uint256S("0x3d2160a3b5dc4a9d62e7e66a295f70313ac808440ef7400d6c0772171ce973a5"));
+        //assert(genesis.hashMerkleRoot == uint256S("0x5b2a3f53f605d62c53e62932dac6925e3d74afa5a4b459745c36d42d0ed26a69"));
 
         vFixedSeeds.clear(); //!< Regtest mode doesn't have any fixed seeds.
         vSeeds.clear();      //!< Regtest mode doesn't have any DNS seeds.

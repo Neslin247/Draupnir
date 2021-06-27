@@ -104,7 +104,7 @@
     <name>BanTableModel</name>
     </context>
 <context>
-    <name>DogecoinGUI</name>
+    <name>DraupnirGUI</name>
     <message>
         <source>Synchronizing with network...</source>
         <translation>Võrguga sünkroniseerimine...</translation>
@@ -130,8 +130,8 @@
         <translation>Kõvakettal olevate plokkide reindekseerimine...</translation>
     </message>
     <message>
-        <source>Dogecoin</source>
-        <translation>Dogecoin</translation>
+        <source>Draupnir</source>
+        <translation>Draupnir</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -754,14 +754,14 @@
     </message>
     </context>
 <context>
-    <name>dogecoin-core</name>
+    <name>draupnir-core</name>
     <message>
         <source>Options:</source>
         <translation>Valikud:</translation>
     </message>
     <message>
-        <source>Dogecoin Core</source>
-        <translation>Dogecoin Core</translation>
+        <source>Draupnir Core</source>
+        <translation>Draupnir Core</translation>
     </message>
     <message>
         <source>Information</source>
