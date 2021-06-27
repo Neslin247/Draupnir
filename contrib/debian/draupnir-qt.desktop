@@ -1,0 +1,13 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Draupnir Core
+Comment=Connect to the Draupnir P2P Network
+Comment[de]=Verbinde mit dem Draupnir peer-to-peer Netzwerk
+Comment[fr]=Draupnir, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=Draupnir, eşten eşe kriptografik sanal para birimi
+Exec=draupnir-qt %u
+Terminal=false
+Type=Application
+Icon=draupnir128
+MimeType=x-scheme-handler/draupnir;
+Categories=Office;Finance;
