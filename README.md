@@ -1,13 +1,13 @@
-# Draupnir Core [DRAUPNIR, Ð]
+# Draupnir Core [DRAUPNIR, D]
 
-![Draupnir](https://static.tumblr.com/ppdj5y9/Ae9mxmxtp/300coin.png)
+![Draupnir](https://draupnircoin.tumblr.com/post/655175768984387584)
 
 [![Build Status](https://travis-ci.com/draupnir/draupnir.svg?branch=master)](https://travis-ci.com/draupnir/draupnir)
 
 Draupnir is a cryptocurrency like Bitcoin, although it does not use SHA256 as
-its proof of work (POW). Taking development cues from Tenebrix and Litecoin,
+its proof of work (POW). Taking development cues from Dogecoin, Bitcoin, Tenebrix, and Litecoin,
 Draupnir currently employs a simplified variant of scrypt.
-- **Website:** [draupnir.com.](https://draupnir.com)
+- **Website:** [draupnircoin.org.](https://draupnircoin.org)
 
 ## License – Much license ⚖️
 Draupnir Core is released under the terms of the MIT license. See
@@ -53,7 +53,7 @@ not straightforward.
 ## Very Much Frequently Asked Questions ❓
 
 ### How many Draupnir rings (or coins) can exist? 🐕
-Early 2015 (approximately a year and a half after release) there will be
+Late 2022 (approximately a year and a half after release) there will be
 approximately 100,000,000,000 coins.
 Each subsequent block will grant 10,000 coins to encourage miners to continue to
 secure the network and make up for lost wallets on hard drives/phones/lost
